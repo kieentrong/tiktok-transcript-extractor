@@ -1,6 +1,6 @@
 # TikTok Transcript Extractor - NEX Picture Desktop Studio (v3.1.1)
 
-Ứng dụng **Native Desktop App chuyên nghiệp** dành cho macOS giúp tự động quét, cào và trích xuất sạch sẽ toàn bộ transcript từ bất kỳ kênh TikTok nào. Phần mềm được thiết kế tinh tế theo triết lý **NEX Picture Design Logic (White/Ice Theme)** sáng bừng, sang trọng và không con lăn cuộn.
+Ứng dụng dành cho macOS giúp tự động quét, cào và trích xuất sạch sẽ toàn bộ transcript từ bất kỳ kênh TikTok nào.
 
 ---
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 🌟 Những Gì Phần Mềm Làm Được (Core Features)
+## Tính năng chính (Core Features)
 
 *   **Quét Kênh Siêu Tốc**: Chỉ cần dán URL hoặc Username của kênh TikTok, phần mềm tự động quét và thống kê chính xác tổng số lượng video hiện có trên kênh chỉ trong 1-2 giây.
 *   **Trích Xuất Phụ Đề Gốc Tiếng Việt**: Tự động tải xuống phụ đề tiếng Việt gốc được uploader đính kèm trên TikTok một cách nhanh chóng và chính xác.
