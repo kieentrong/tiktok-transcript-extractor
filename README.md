@@ -1,4 +1,4 @@
-# TikTok Transcript Extractor - NEX Picture Desktop Studio (v3.1.1)
+# TikTok Transcript Extractor - NEX Picture Desktop Studio (v3.1.5)
 
 Ứng dụng dành cho macOS giúp tự động quét, cào và trích xuất sạch sẽ toàn bộ transcript từ bất kỳ kênh TikTok nào.
 
@@ -22,6 +22,17 @@
 *   **Live Logs SSE Thời Gian Thực**: Cung cấp giao diện console log cập nhật từng giây và thanh tiến trình gradient mượt mà hiển thị chi tiết trạng thái xử lý từng video (Đã có sẵn, dùng Whisper, dùng phụ đề gốc, hoặc bị lỗi).
 *   **Tự Động Tắt Sạch Flask Server**: Khi bạn đóng cửa sổ ứng dụng Tauri, Rust Backend sẽ tự động kill sạch Flask Python server chạy ngầm dưới nền, giải phóng 100% tài nguyên RAM và CPU cho macOS.
 
+## Lịch sử cập nhật (Changelog)
+
+| Phiên bản | Ngày | Tác giả | Mô tả |
+| :--- | :--- | :--- | :--- |
+| **v3.1.5** | 25/05/2026 | kieentrong | Cập nhật link kênh mặc định thành @kieentrong và tối ưu hóa CSS padding/margin để hiển thị hoàn hảo đồng thời cả cấu hình và thanh tiến trình mà không bị mất nút khi cào/dừng. |
+| **v3.1.4** | 25/05/2026 | kieentrong | Tối ưu hóa layout (ẩn Cấu hình, tăng max-height, tăng window height) để giải quyết triệt để lỗi tràn layout gây ẩn các nút bấm ở dưới khi đang cào. |
+| **v3.1.3** | 25/05/2026 | kieentrong | Sửa lỗi kết nối server (CORS & Absolute API Endpoint) trên macOS Webview production build. |
+| **v3.1.2** | 25/05/2026 | kieentrong | Cập nhật hình ảnh minh họa giao diện chính trên README.md (White/Ice Theme mới v2.0). |
+| **v3.1.1** | 25/05/2026 | kieentrong | Tích hợp Whisper AI Local dự phòng, làm sạch văn bản, live logs SSE và cơ chế tự động cài đặt. |
+| **v2.0.0** | 25/05/2026 | kieentrong | Bản cập nhật lớn giao diện và cấu trúc dự án. |
+
 ---
 
 ## 🚀 Hướng Dẫn Cài Đặt Chi Tiết
@@ -33,7 +44,7 @@
 
 *   **Bước 1: Tải file cài đặt**
     *   Bấm vào link [Trang Releases của GitHub](https://github.com/kieentrong/tiktok-transcript-extractor/releases).
-    *   Tại mục bản phát hành mới nhất, bấm vào tệp tin **`TikTok Transcript Extractor_3.0.0_aarch64.dmg`** ở phần *Assets* để tải về máy Mac của bạn.
+    *   Tại mục bản phát hành mới nhất, bấm vào tệp tin **`TikTok Transcript Extractor_3.1.5_aarch64.dmg`** ở phần *Assets* để tải về máy Mac của bạn.
 *   **Bước 2: Cài đặt vào máy**
     *   Nhấp đúp chuột vào file `.dmg` vừa tải về để mở cửa sổ đĩa đệm.
     *   **Kéo và thả** biểu tượng ứng dụng **TikTok Transcript Extractor** vào thư mục **Applications** (Ứng dụng) trên máy Mac của bạn.
@@ -82,4 +93,5 @@ Các tệp đóng gói hoàn tất sẽ xuất hiện tại thư mục `src-taur
 
 ---
 
-*Copyright by Kien NEX Picture • Phiên bản v2.0*
+*Copyright by Kien NEX Picture • Phiên bản v3.1.5*
+

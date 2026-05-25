@@ -25,6 +25,23 @@ import yt_dlp
 
 app = Flask(__name__)
 
+# Cấu hình CORS thủ công cho phép Tauri Webview kết nối an toàn
+@app.before_request
+def handle_options():
+    if request.method == 'OPTIONS':
+        response = Response()
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+        return response
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    return response
+
 # Cờ kiểm soát dừng tiến trình cào dữ liệu
 should_stop = False
 

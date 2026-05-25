@@ -88,11 +88,11 @@
             width: 100%;
             max-width: 900px;
             height: 100%;
-            max-height: 680px; /* Thu gọn chiều cao tối đa của container để vừa khít màn hình */
+            max-height: 750px; /* Tối ưu hóa chiều cao container cho giao diện mới v3.1.3 */
             background: var(--nex-surface);
             border: 1px solid var(--nex-border);
             border-radius: 20px;
-            padding: 1.8rem 2.2rem 1rem 2.2rem; /* Tối ưu hóa padding dọc */
+            padding: 1.2rem 2.2rem 0.8rem 2.2rem; /* Tối ưu hóa padding dọc cho phiên bản v3.1.5 */
             box-shadow: var(--nex-shadow);
             z-index: 10;
             position: relative;
@@ -154,7 +154,7 @@
 
         /* Forms & Inputs */
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 0.7rem;
         }
 
         .form-group label {
@@ -261,8 +261,8 @@
         .config-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.8rem;
+            margin-bottom: 0.7rem;
         }
 
         .config-card {
@@ -479,10 +479,10 @@
             font-size: 0.8rem;
             color: #334155; /* Chữ sẫm màu dễ nhìn */
             flex: 1 1 auto; /* Tự động co giãn */
-            min-height: 120px;
-            max-height: 180px; /* Khống chế chiều cao console vừa vặn */
+            min-height: 80px;
+            max-height: 120px; /* Khống chế chiều cao console vừa vặn */
             overflow-y: auto;
-            margin-bottom: 1rem;
+            margin-bottom: 0.7rem;
             box-shadow: inset 0 2px 8px rgba(0, 42, 110, 0.03); /* Bóng đổ lõm dịu mắt */
             scroll-behavior: smooth;
         }
@@ -537,11 +537,11 @@
 
         /* NEX Picture Compact LIGHT Brand Footer - Đồng bộ 100% màu sáng */
         .footer-brand {
-            margin-top: 1.2rem;
+            margin-top: 0.8rem;
             background: rgba(0, 97, 255, 0.03); /* Nền xanh băng nhạt thanh nhã */
             color: #64748b; /* Chữ xám ghi sang trọng */
             border-radius: 10px;
-            padding: 0.7rem 1.2rem;
+            padding: 0.5rem 1.2rem;
             font-size: 0.75rem;
             font-weight: 500;
             position: relative;
@@ -584,7 +584,7 @@
             <div class="form-group">
                 <label for="channel-url">URL Kênh TikTok hoặc Username</label>
                 <div class="input-row">
-                    <input type="text" id="channel-url" class="input-control" placeholder="Ví dụ: https://www.tiktok.com/@khoang.lang.cuocsong hoặc @khoang.lang.cuocsong" value="https://www.tiktok.com/@khoang.lang.cuocsong">
+                    <input type="text" id="channel-url" class="input-control" placeholder="Ví dụ: https://www.tiktok.com/@kieentrong hoặc @kieentrong" value="https://www.tiktok.com/@kieentrong">
                     <button id="btn-scan" class="btn btn-secondary">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                         Quét Kênh
@@ -599,7 +599,7 @@
             </div>
 
             <!-- Configuration Grid -->
-            <div class="config-grid">
+            <div id="config-grid" class="config-grid">
                 <div class="config-card">
                     <label style="display:block; margin-bottom: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Phương án khi thiếu phụ đề gốc</label>
                     <div class="radio-group">
@@ -682,7 +682,7 @@
         </main>
 
         <footer class="footer-brand">
-            Copyright by Kien NEX Picture • Phiên bản v2.0
+            Copyright by Kien NEX Picture • Phiên bản v3.1.5
         </footer>
     </div>
 
@@ -733,7 +733,7 @@
             appendLog(`Bắt đầu quét thông tin kênh: ${url}`);
 
             try {
-                const response = await fetch('/api/scan', {
+                const response = await fetch('http://127.0.0.1:5005/api/scan', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: url })
@@ -772,6 +772,7 @@
             channelUrlInput.disabled = true;
             btnStop.style.display = 'inline-flex';
             progressSection.style.display = 'block';
+            document.getElementById('config-grid').style.display = 'none'; // Ẩn cấu hình khi cào để tối ưu giao diện
             
             // Reset stats values
             statSubVal.textContent = '0';
@@ -793,7 +794,7 @@
                 no_sub_option: noSubOption
             });
             
-            sseSource = new EventSource(`/api/start?${queryParams.toString()}`);
+            sseSource = new EventSource(`http://127.0.0.1:5005/api/start?${queryParams.toString()}`);
 
             sseSource.onmessage = function(event) {
                 const data = JSON.parse(event.data);
@@ -844,7 +845,7 @@
             appendLog('Đang yêu cầu dừng tiến trình từ server...', 'warning');
             
             try {
-                const response = await fetch('/api/stop', { method: 'POST' });
+                const response = await fetch('http://127.0.0.1:5005/api/stop', { method: 'POST' });
                 const data = await response.json();
                 if (data.status === 'success') {
                     appendLog('Đã dừng tiến trình cào dữ liệu thành công!', 'error');
@@ -867,13 +868,14 @@
             btnScan.disabled = false;
             channelUrlInput.disabled = false;
             btnStop.style.display = 'none';
+            document.getElementById('config-grid').style.display = 'grid'; // Hiển thị lại cấu hình sau khi hoàn tất
         }
 
         // Mở thư mục kết quả trong Finder macOS
         btnOpenFolder.addEventListener('click', async () => {
             try {
                 appendLog('Đang yêu cầu mở thư mục kết quả trên máy tính...');
-                const response = await fetch('/api/open-folder', { method: 'POST' });
+                const response = await fetch('http://127.0.0.1:5005/api/open-folder', { method: 'POST' });
                 const data = await response.json();
                 if (data.status === 'success') {
                     appendLog('Đã mở thư mục transcripts thành công!', 'success');

@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "TikTok Transcript Extractor",
-    "version": "3.0.0"
+    "version": "3.1.5"
   },
   "tauri": {
     "allowlist": {
@@ -33,7 +33,7 @@
       {
         "title": "TikTok Transcript Extractor",
         "width": 980,
-        "height": 720,
+        "height": 800,
         "resizable": true,
         "fullscreen": false,
         "decorations": true
