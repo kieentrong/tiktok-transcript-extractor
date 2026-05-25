@@ -8,6 +8,10 @@
 
 ---
 
+![TikTok Transcript Extractor Giao diện White/Ice Theme](assets/app_screenshot.png)
+
+---
+
 ## Tính năng chính (Core Features)
 
 *   **Quét Kênh Siêu Tốc**: Chỉ cần dán URL hoặc Username của kênh TikTok, phần mềm tự động quét và thống kê chính xác tổng số lượng video hiện có trên kênh chỉ trong 1-2 giây.
