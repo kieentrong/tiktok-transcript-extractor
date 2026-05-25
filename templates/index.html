@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Transcript Extractor - NEX Picture B2B Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern CSS Reset & NEX Picture Color Variables (White/Ice Theme) */
+        :root {
+            --bg-color: #f4f7fa;
+            --nex-surface: #ffffff;
+            --nex-border: rgba(0, 97, 255, 0.1);
+            --nex-shadow: 0 10px 30px rgba(0, 42, 110, 0.05);
+            
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --primary-gradient: linear-gradient(135deg, #0061ff 0%, #60efe7 100%);
+            --accent-gradient: linear-gradient(135deg, #0052d4 0%, #4364f7 100%);
+            --success-color: #059669;
+            --error-color: #dc2626;
+            --warning-color: #d97706;
+            
+            --nex-site-max: 1320px;
+            --nex-section-max: 1160px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.2rem;
+            position: relative;
+            overflow: hidden; /* Khóa hoàn toàn thanh cuộn dọc body */
+        }
+
+        /* Background Decorative Glowing Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+            animation: float 20s infinite alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 97, 255, 0.15) 0%, rgba(96, 234, 220, 0) 70%);
+            top: -5%;
+            right: -5%;
+        }
+
+        .orb-2 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 97, 255, 0.12) 0%, rgba(67, 100, 247, 0) 70%);
+            bottom: -10%;
+            left: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 20px) scale(1.05); }
+        }
+
+        /* Glassmorphism Container with Ice/White Surface style */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            height: 100%;
+            max-height: 680px; /* Thu gọn chiều cao tối đa của container để vừa khít màn hình */
+            background: var(--nex-surface);
+            border: 1px solid var(--nex-border);
+            border-radius: 20px;
+            padding: 1.8rem 2.2rem 1rem 2.2rem; /* Tối ưu hóa padding dọc */
+            box-shadow: var(--nex-shadow);
+            z-index: 10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        /* Radial light in the upper corner of the main container */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(0, 97, 255, 0.06) 0%, rgba(0, 97, 255, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Typography & Header */
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 1.2rem;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0052d4 0%, #4364f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        /* Forms & Inputs */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.2px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .input-control {
+            flex: 1;
+            background: rgba(0, 97, 255, 0.02);
+            border: 1px solid rgba(0, 97, 255, 0.15);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .input-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-control:focus {
+            border-color: #0061ff;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 97, 255, 0.1);
+        }
+
+        /* Buttons styling */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+            gap: 0.4rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 3px 10px rgba(0, 97, 255, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 97, 255, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 97, 255, 0.04);
+            color: #0061ff;
+            border: 1px solid rgba(0, 97, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 97, 255, 0.08);
+            border-color: rgba(0, 97, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary:active, .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+            box-shadow: 0 3px 10px rgba(220, 38, 38, 0.15);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.25);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Config Grid styling */
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .config-card {
+            background: var(--nex-surface);
+            border: 1px solid var(--nex-border);
+            border-radius: 12px;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 42, 110, 0.02);
+            transition: all 0.25s;
+        }
+
+        /* Radial gradient glow in one corner of cards */
+        .config-card::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(0, 97, 255, 0.08) 0%, rgba(0, 97, 255, 0) 70%);
+            pointer-events: none;
+        }
+
+        .config-card:hover {
+            border-color: rgba(0, 97, 255, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 42, 110, 0.04);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .radio-option:hover {
+            color: var(--text-primary);
+        }
+
+        .radio-option input[type="radio"] {
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            font: inherit;
+            color: #0061ff;
+            width: 1.1em;
+            height: 1.1em;
+            border: 1.5px solid rgba(0, 97, 255, 0.3);
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option input[type="radio"]::before {
+            content: "";
+            width: 0.5em;
+            height: 0.5em;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 100ms transform ease-in-out;
+            background-color: currentColor;
+        }
+
+        .radio-option input[type="radio"]:checked {
+            border-color: #0061ff;
+        }
+
+        .radio-option input[type="radio"]:checked::before {
+            transform: scale(1);
+        }
+
+        /* Info Display (Quét Kênh) */
+        .info-panel {
+            background: rgba(0, 97, 255, 0.03);
+            border: 1px dashed rgba(0, 97, 255, 0.25);
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            margin-bottom: 0.8rem;
+            display: none;
+            align-items: center;
+            gap: 0.6rem;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-panel svg {
+            color: #0061ff;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .info-text strong {
+            color: #0061ff;
+            font-weight: 600;
+        }
+
+        /* Live Progress Section */
+        .progress-section {
+            margin: 0.6rem 0;
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .progress-status {
+            font-weight: 600;
+            color: #0052d4;
+        }
+
+        .progress-percent {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .progress-track {
+            height: 8px;
+            background: rgba(0, 97, 255, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 97, 255, 0.02);
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-gradient);
+            border-radius: 4px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(0, 97, 255, 0.2);
+        }
+
+        /* Summary Stats Cards Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-card {
+            background: var(--nex-surface);
+            border: 1px solid var(--nex-border);
+            border-radius: 10px;
+            padding: 0.6rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 42, 110, 0.01);
+            transition: all 0.25s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 97, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .stat-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+
+        .stat-lbl {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .stat-success .stat-val { color: var(--success-color); }
+        .stat-whisper .stat-val { color: #6d28d9; }
+        .stat-skipped .stat-val { color: var(--warning-color); }
+        .stat-failed .stat-val { color: var(--error-color); }
+
+        /* Terminal live console output - Đồng bộ tone màu sáng Ice/White */
+        .console-box {
+            background: rgba(0, 97, 255, 0.02); /* Nền sáng dịu màu xanh băng nhạt */
+            border: 1px solid rgba(0, 97, 255, 0.15);
+            border-radius: 12px;
+            padding: 0.8rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #334155; /* Chữ sẫm màu dễ nhìn */
+            flex: 1 1 auto; /* Tự động co giãn */
+            min-height: 120px;
+            max-height: 180px; /* Khống chế chiều cao console vừa vặn */
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 2px 8px rgba(0, 42, 110, 0.03); /* Bóng đổ lõm dịu mắt */
+            scroll-behavior: smooth;
+        }
+
+        .console-line {
+            margin-bottom: 0.35rem;
+            line-height: 1.25rem;
+            white-space: pre-wrap;
+        }
+
+        /* Màu chữ log sáng màu được tối ưu độ tương phản */
+        .console-line.info { color: #0284c7; }
+        .console-line.success { color: #059669; }
+        .console-line.warning { color: #d97706; }
+        .console-line.error { color: #dc2626; }
+        .console-line.whisper { color: #7c3aed; }
+
+        /* Custom Scrollbar cho console sáng màu */
+        .console-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .console-box::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .console-box::-webkit-scrollbar-thumb {
+            background: rgba(0, 97, 255, 0.15);
+            border-radius: 3px;
+        }
+
+        .console-box::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 97, 255, 0.3);
+        }
+
+        /* Action Buttons Row */
+        .action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            border-top: 1px solid rgba(0, 97, 255, 0.1);
+            padding-top: 0.8rem;
+            margin-top: auto;
+        }
+
+        .action-left {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        /* NEX Picture Compact LIGHT Brand Footer - Đồng bộ 100% màu sáng */
+        .footer-brand {
+            margin-top: 1.2rem;
+            background: rgba(0, 97, 255, 0.03); /* Nền xanh băng nhạt thanh nhã */
+            color: #64748b; /* Chữ xám ghi sang trọng */
+            border-radius: 10px;
+            padding: 0.7rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            border-top: 1px solid rgba(0, 97, 255, 0.15); /* Đường chỉ xanh thương hiệu cực kỳ mảnh tinh xảo */
+            box-shadow: 0 2px 8px rgba(0, 42, 110, 0.02);
+            z-index: 1;
+        }
+
+        .footer-brand a {
+            color: #0061ff;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 600;
+        }
+
+        .footer-brand a:hover {
+            color: #60efe7;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Radial Decorative Blurs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>TikTok Transcript Extractor</h1>
+            <p>Giải pháp tối ưu hóa dữ liệu & khai thác hiệu quả kinh doanh từ video chiến lược</p>
+        </header>
+
+        <!-- Main Form Panel -->
+        <main>
+            <div class="form-group">
+                <label for="channel-url">URL Kênh TikTok hoặc Username</label>
+                <div class="input-row">
+                    <input type="text" id="channel-url" class="input-control" placeholder="Ví dụ: https://www.tiktok.com/@khoang.lang.cuocsong hoặc @khoang.lang.cuocsong" value="https://www.tiktok.com/@khoang.lang.cuocsong">
+                    <button id="btn-scan" class="btn btn-secondary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        Quét Kênh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Channel Scan Info Panel -->
+            <div id="info-panel" class="info-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 1 1 1.063 1.06l-.041.02-.008.004-.005.002h-.002v.003l-.024.015h-.004a.75.75 0 0 1-1.002-.403l-.003-.007v-.002v-.003L11.25 11.25ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                <div id="info-msg" class="info-text">Đang kết nối để quét dữ liệu kênh...</div>
+            </div>
+
+            <!-- Configuration Grid -->
+            <div class="config-grid">
+                <div class="config-card">
+                    <label style="display:block; margin-bottom: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Phương án khi thiếu phụ đề gốc</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="no-sub-option" value="B" checked>
+                            <span>(Khuyên dùng) Phân tích giọng nói bằng Whisper AI local</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="no-sub-option" value="A">
+                            <span>Chỉ ghi nhận trạng thái và bỏ qua</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="config-card" style="display: flex; flex-direction: column; justify-content: center;">
+                    <label style="display:block; margin-bottom: 0.3rem; font-size: 0.8rem; font-weight: 700; color: var(--text-primary);">Định dạng Lưu trữ Tệp</label>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.2rem;">
+                        Tệp transcript sạch (.txt) được lưu trữ tự động dạng: <br>
+                        <strong style="color: #0061ff;">[Tên Video] - [ID Video].txt</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Live Progress Bar Section -->
+            <div id="progress-section" class="progress-section">
+                <div class="progress-header">
+                    <span id="progress-status" class="progress-status">Bắt đầu tiến trình...</span>
+                    <span id="progress-percent" class="progress-percent">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+
+                <!-- Thống kê trạng thái số lượng video thời gian thực -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-success">
+                        <div id="stat-sub-val" class="stat-val">0</div>
+                        <div class="stat-lbl">Phụ Đề Gốc</div>
+                    </div>
+                    <div class="stat-card stat-whisper">
+                        <div id="stat-whisper-val" class="stat-val">0</div>
+                        <div class="stat-lbl">Whisper AI</div>
+                    </div>
+                    <div class="stat-card stat-skipped">
+                        <div id="stat-skip-val" class="stat-val">0</div>
+                        <div class="stat-lbl">Đã Có Sẵn</div>
+                    </div>
+                    <div class="stat-card stat-failed">
+                        <div id="stat-fail-val" class="stat-val">0</div>
+                        <div class="stat-lbl">Bị Lỗi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal live console output -->
+            <div id="console-box" class="console-box">
+                <div class="console-line info">> NEX Picture - Giải pháp trích xuất dữ liệu, tối ưu hóa công cụ tìm kiếm và củng cố sự tin tưởng từ nội dung video.</div>
+                <div class="console-line info">> Vui lòng dán link kênh và bấm "Bắt Đầu Cào" để thực hiện.</div>
+            </div>
+
+            <!-- Action buttons row -->
+            <div class="action-row">
+                <div class="action-left">
+                    <button id="btn-open-folder" class="btn btn-secondary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/></svg>
+                        Thư Mục Kết Quả
+                    </button>
+                </div>
+                <div class="action-right">
+                    <button id="btn-stop" class="btn btn-danger" style="display:none;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/></svg>
+                        Dừng Cào
+                    </button>
+                    <button id="btn-start" class="btn btn-primary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+                        Bắt Đầu Cào
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer-brand">
+            Copyright by Kien NEX Picture • Phiên bản v2.0
+        </footer>
+    </div>
+
+    <!-- Javascript logic -->
+    <script>
+        const btnScan = document.getElementById('btn-scan');
+        const btnStart = document.getElementById('btn-start');
+        const btnStop = document.getElementById('btn-stop');
+        const btnOpenFolder = document.getElementById('btn-open-folder');
+        const channelUrlInput = document.getElementById('channel-url');
+        const infoPanel = document.getElementById('info-panel');
+        const infoMsg = document.getElementById('info-msg');
+        const progressSection = document.getElementById('progress-section');
+        const progressStatus = document.getElementById('progress-status');
+        const progressPercent = document.getElementById('progress-percent');
+        const progressBar = document.getElementById('progress-bar');
+        const consoleBox = document.getElementById('console-box');
+
+        // Stats elements
+        const statSubVal = document.getElementById('stat-sub-val');
+        const statWhisperVal = document.getElementById('stat-whisper-val');
+        const statSkipVal = document.getElementById('stat-skip-val');
+        const statFailVal = document.getElementById('stat-fail-val');
+
+        let sseSource = null;
+        let isProcessing = false;
+
+        // Thêm log vào console box
+        function appendLog(message, type = 'info') {
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = `> ${message}`;
+            consoleBox.appendChild(line);
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        // Quét thông tin kênh nhanh
+        btnScan.addEventListener('click', async () => {
+            const url = channelUrlInput.value.trim();
+            if (!url) {
+                appendLog('Lỗi: Vui lòng nhập URL kênh TikTok hoặc Username.', 'error');
+                return;
+            }
+
+            btnScan.disabled = true;
+            infoPanel.style.display = 'flex';
+            infoMsg.innerHTML = 'Đang quét danh sách video trên kênh TikTok...';
+            appendLog(`Bắt đầu quét thông tin kênh: ${url}`);
+
+            try {
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    infoMsg.innerHTML = `Quét thành công! Tìm thấy <strong>${data.count} video</strong> trên kênh <strong>${data.channel_name}</strong>.`;
+                    appendLog(`Quét thành công kênh "${data.channel_name}". Tìm thấy ${data.count} video.`, 'success');
+                } else {
+                    infoMsg.innerHTML = `<span style="color:var(--error-color)">Quét thất bại! Lỗi: ${data.message}</span>`;
+                    appendLog(`Quét thất bại: ${data.message}`, 'error');
+                }
+            } catch (err) {
+                infoMsg.innerHTML = `<span style="color:var(--error-color)">Quét thất bại! Lỗi kết nối server.</span>`;
+                appendLog(`Lỗi kết nối server: ${err.message}`, 'error');
+            } finally {
+                btnScan.disabled = false;
+            }
+        });
+
+        // Bắt đầu cào transcript
+        btnStart.addEventListener('click', () => {
+            const url = channelUrlInput.value.trim();
+            if (!url) {
+                appendLog('Lỗi: Vui lòng nhập URL kênh TikTok hoặc Username.', 'error');
+                return;
+            }
+
+            const noSubOption = document.querySelector('input[name="no-sub-option"]:checked').value;
+
+            // Reset UI states
+            isProcessing = true;
+            btnStart.disabled = true;
+            btnScan.disabled = true;
+            channelUrlInput.disabled = true;
+            btnStop.style.display = 'inline-flex';
+            progressSection.style.display = 'block';
+            
+            // Reset stats values
+            statSubVal.textContent = '0';
+            statWhisperVal.textContent = '0';
+            statSkipVal.textContent = '0';
+            statFailVal.textContent = '0';
+            
+            progressBar.style.width = '0%';
+            progressPercent.textContent = '0%';
+            progressStatus.textContent = 'Đang khởi chạy luồng cào dữ liệu...';
+
+            consoleBox.innerHTML = ''; // Dọn dẹp console
+            appendLog(`Khởi chạy tiến trình cào transcript cho kênh: ${url}`, 'info');
+            appendLog(`Chế độ xử lý thiếu phụ đề: ${noSubOption === 'B' ? 'Dịch bằng Whisper AI' : 'Bỏ qua video'}`, 'info');
+
+            // Thiết lập Server-Sent Events (SSE) để stream Live Logs từ Flask server
+            const queryParams = new URLSearchParams({
+                url: url,
+                no_sub_option: noSubOption
+            });
+            
+            sseSource = new EventSource(`/api/start?${queryParams.toString()}`);
+
+            sseSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'log') {
+                    // Phân tích màu sắc hiển thị cho live logs
+                    let logType = 'info';
+                    if (data.message.includes('thành công') || data.message.includes('HOÀN THÀNH')) logType = 'success';
+                    else if (data.message.includes('❌') || data.message.includes('Lỗi')) logType = 'error';
+                    else if (data.message.includes('Whisper') || data.message.includes('âm thanh')) logType = 'whisper';
+                    else if (data.message.includes('Bỏ qua') || data.message.includes('Đã xử lý')) logType = 'warning';
+                    
+                    appendLog(data.message, logType);
+                } 
+                else if (data.type === 'progress') {
+                    // Cập nhật Progress Bar & Thống kê
+                    progressBar.style.width = `${data.percent}%`;
+                    progressPercent.textContent = `${data.percent}%`;
+                    progressStatus.textContent = `Đang cào: Video ${data.current}/${data.total}`;
+                    
+                    // Thống kê
+                    statSubVal.textContent = data.stats.sub;
+                    statWhisperVal.textContent = data.stats.whisper;
+                    statSkipVal.textContent = data.stats.skip;
+                    statFailVal.textContent = data.stats.fail;
+                }
+                else if (data.type === 'complete') {
+                    appendLog(`=== TIẾN TRÌNH HOÀN TẤT THÀNH CÔNG ===`, 'success');
+                    appendLog(`Tổng số video đã xử lý: ${data.total}`, 'success');
+                    appendLog(`Xem báo cáo tổng hợp chi tiết và toàn bộ file transcript trong thư mục kết quả.`, 'success');
+                    stopSSE();
+                }
+                else if (data.type === 'error') {
+                    appendLog(`❌ Lỗi hệ thống: ${data.message}`, 'error');
+                    stopSSE();
+                }
+            };
+
+            sseSource.onerror = function() {
+                appendLog('❌ Kết nối với server bị gián đoạn.', 'error');
+                stopSSE();
+            };
+        });
+
+        // Dừng cào dữ liệu
+        btnStop.addEventListener('click', async () => {
+            if (!isProcessing) return;
+            appendLog('Đang yêu cầu dừng tiến trình từ server...', 'warning');
+            
+            try {
+                const response = await fetch('/api/stop', { method: 'POST' });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    appendLog('Đã dừng tiến trình cào dữ liệu thành công!', 'error');
+                }
+            } catch (err) {
+                appendLog(`Lỗi khi yêu cầu dừng: ${err.message}`, 'error');
+            } finally {
+                stopSSE();
+            }
+        });
+
+        // Tự động giải phóng SSE và khôi phục trạng thái nút bấm
+        function stopSSE() {
+            if (sseSource) {
+                sseSource.close();
+                sseSource = null;
+            }
+            isProcessing = false;
+            btnStart.disabled = false;
+            btnScan.disabled = false;
+            channelUrlInput.disabled = false;
+            btnStop.style.display = 'none';
+        }
+
+        // Mở thư mục kết quả trong Finder macOS
+        btnOpenFolder.addEventListener('click', async () => {
+            try {
+                appendLog('Đang yêu cầu mở thư mục kết quả trên máy tính...');
+                const response = await fetch('/api/open-folder', { method: 'POST' });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    appendLog('Đã mở thư mục transcripts thành công!', 'success');
+                } else {
+                    appendLog(`Không thể mở thư mục: ${data.message}`, 'error');
+                }
+            } catch (err) {
+                appendLog(`Lỗi kết nối server: ${err.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

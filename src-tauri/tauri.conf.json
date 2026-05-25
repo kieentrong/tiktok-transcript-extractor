@@ -1,0 +1,43 @@
+{
+  "build": {
+    "distDir": "../templates",
+    "devPath": "http://localhost:5005",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": ""
+  },
+  "package": {
+    "productName": "TikTok Transcript Extractor",
+    "version": "3.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": true
+    },
+    "bundle": {
+      "active": true,
+      "targets": ["app", "dmg"],
+      "identifier": "com.kien.tiktok-extractor",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "resources": []
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "title": "TikTok Transcript Extractor",
+        "width": 980,
+        "height": 720,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true
+      }
+    ]
+  }
+}

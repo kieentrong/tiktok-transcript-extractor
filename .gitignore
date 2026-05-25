@@ -1,0 +1,34 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+*.db
+
+# Python virtual environment & Cache
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Node.js dependencies
+node_modules/
+.pnpm-store/
+
+# Tauri/Rust build artifacts
+src-tauri/target/
+
+# Local Data & Extraction Results (Tránh đẩy dữ liệu cào cục bộ lên Github)
+transcripts/
+temp_audio/
+videos.json
+summary.md
+
+# Log files
+*.log
+src-tauri/*.log
+
+# Application packages/installers (Tránh đẩy bản build native cồng kềnh lên Git)
+*.dmg
+*.app/
+src-tauri/target/release/bundle/
