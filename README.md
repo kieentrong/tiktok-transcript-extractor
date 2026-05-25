@@ -8,7 +8,7 @@
 
 ---
 
-![TikTok Transcript Extractor Giao diện White/Ice Theme](assets/app_screenshot.png)
+![TikTok Transcript Extractor Giao diện White/Ice Theme](assets/app_screenshot_v3.png)
 
 ---
 
