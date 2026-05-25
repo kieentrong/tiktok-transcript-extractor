@@ -4,6 +4,10 @@
 
 ---
 
+### 📥 [Tải Xuống Bản Cài Đặt (.dmg) Cho macOS Mới Nhất Tại Đây](https://github.com/kieentrong/tiktok-transcript-extractor/releases)
+
+---
+
 ## 🌟 Những Gì Phần Mềm Làm Được (Core Features)
 
 *   **Quét Kênh Siêu Tốc**: Chỉ cần dán URL hoặc Username của kênh TikTok, phần mềm tự động quét và thống kê chính xác tổng số lượng video hiện có trên kênh chỉ trong 1-2 giây.
@@ -16,19 +20,32 @@
 
 ---
 
-## 🚀 Hướng Dẫn Cài Đặt & Sử Dụng
+## 🚀 Hướng Dẫn Cài Đặt Chi Tiết
 
-### 📂 1. Dành cho Người dùng Cuối (End-User)
-Ứng dụng native đã được biên dịch và đóng gói sẵn sàng tại thư mục gốc:
-*   📦 **TikTok Transcript Extractor.app**: Bản chạy native trực tiếp. Bạn có thể kéo tệp này vào thư mục `/Applications` để sử dụng lâu dài.
-*   💾 **TikTok Transcript Extractor_3.0.0_aarch64.dmg**: File cài đặt đĩa đệm chuẩn macOS.
+### 📂 1. Dành cho Người dùng Cuối (End-User) - Chỉ Cần 3 Bước Đơn Giản
 
-#### 💡 Cách Vận Hành Trên Một Máy Mac Mới Hoàn Toàn ("Trắng tinh"):
-1.  **Nhấp đúp chuột** vào tệp **`TikTok Transcript Extractor.app`** để khởi chạy.
-2.  **Hệ thống tự động setup ngầm (Self-installing)**: 
-    *   Ứng dụng sẽ tự động kiểm tra và tạo môi trường ảo Python `venv` trong thư mục gốc.
-    *   Tự động chạy `pip install` để cài đặt ngầm tất cả thư viện AI cần thiết (`Flask`, `yt-dlp`, `openai-whisper`...) hoàn toàn ẩn dưới nền mà không cần mở Terminal.
-3.  **Lưu ý duy nhất**: Máy Mac cần cài đặt sẵn lệnh `python3`. Nếu máy mới chưa từng cài bao giờ, hệ thống macOS sẽ hiển thị hộp thoại hỏi *"Bạn có muốn cài đặt Command Line Tools không?"* -> chỉ cần bấm **"Install"** đồng ý, hệ thống sẽ tự tải trong 30 giây và app hoạt động trơn tru vĩnh viễn!
+> [!TIP]
+> Đây là bản đóng gói native chính quy, người dùng hoàn toàn không cần biết lập trình hay gõ bất kỳ dòng lệnh nào!
+
+*   **Bước 1: Tải file cài đặt**
+    *   Bấm vào link [Trang Releases của GitHub](https://github.com/kieentrong/tiktok-transcript-extractor/releases).
+    *   Tại mục bản phát hành mới nhất, bấm vào tệp tin **`TikTok Transcript Extractor_3.0.0_aarch64.dmg`** ở phần *Assets* để tải về máy Mac của bạn.
+*   **Bước 2: Cài đặt vào máy**
+    *   Nhấp đúp chuột vào file `.dmg` vừa tải về để mở cửa sổ đĩa đệm.
+    *   **Kéo và thả** biểu tượng ứng dụng **TikTok Transcript Extractor** vào thư mục **Applications** (Ứng dụng) trên máy Mac của bạn.
+*   **Bước 3: Vượt qua cảnh báo bảo mật macOS (Gatekeeper) khi mở lần đầu**
+    *   Do ứng dụng được tự đóng gói (chưa đăng ký mã nhà phát triển thương mại trả phí của Apple), khi bạn nhấp đúp mở app lần đầu, macOS sẽ hiển thị cảnh báo chặn bảo mật.
+    *   **Cách mở cực kỳ đơn giản**: 
+        1. Nhấp chuột phải (hoặc nhấn giữ phím `Control` và click chuột) vào biểu tượng ứng dụng trong thư mục *Applications* -> Chọn **Open** (Mở).
+        2. Một hộp thoại sẽ hiện lên, lúc này sẽ có nút **"Open Anyway"** (Vẫn mở) hoặc **"Open"** xuất hiện -> bạn chỉ cần bấm nút này là app sẽ chạy bình thường.
+        3. *(Hoặc bạn vào **System Settings** (Cài đặt hệ thống) -> **Privacy & Security** (Quyền riêng tư & Bảo mật) -> cuộn xuống dưới tìm mục bảo mật và bấm **"Open Anyway"**).*
+        4. Từ lần thứ 2 trở đi, bạn có thể click đúp mở app bình thường như mọi phần mềm khác!
+
+#### 💡 Cơ chế Tự Thiết Lập Môi Trường Ngầm (Self-installing):
+Khi app khởi chạy lần đầu tiên trên máy Mac của bạn:
+1.  Rust backend sẽ tự động kiểm tra và tạo môi trường ảo Python `venv` trong thư mục gốc.
+2.  Tự động chạy `pip install` ngầm để cài đặt đầy đủ thư viện AI cần thiết (`Flask`, `yt-dlp`, `openai-whisper`...) hoàn toàn ẩn dưới nền mà không bật Terminal.
+3.  **Yêu cầu duy nhất**: Máy Mac cần cài đặt sẵn lệnh `python3`. Nếu máy mới chưa từng cài bao giờ, hệ thống macOS sẽ hiển thị hộp thoại hỏi *"Bạn có muốn cài đặt Command Line Tools không?"* -> bạn chỉ cần bấm **"Install"** đồng ý, hệ thống sẽ tự tải trong 30 giây và app hoạt động trơn tru vĩnh viễn!
 
 ---
 
