@@ -101,3 +101,6 @@
 - Nếu cần hỗ trợ Mac Intel, cần cài target `x86_64-apple-darwin` và build thêm artifact riêng hoặc universal binary.
 - Khi build v3.1.6, bước DMG của Tauri bị kẹt do volume tạm `/Volumes/TikTok Transcript Extractor` còn mount. Đã force detach `/dev/disk6`, ký ad-hoc lại `.app`, rồi tạo DMG mới bằng `hdiutil create`.
 - Artifact release v3.1.6: `src-tauri/target/release/bundle/dmg/TikTok Transcript Extractor_3.1.6_aarch64.dmg`.
+- Đã commit `237bb31` với message `Fix macOS app packaging for v3.1.6`, push lên `main`, tạo và push tag `v3.1.6`.
+- Đã tạo GitHub Release: `https://github.com/kieentrong/tiktok-transcript-extractor/releases/tag/v3.1.6`.
+- Asset đã upload: `https://github.com/kieentrong/tiktok-transcript-extractor/releases/download/v3.1.6/TikTok.Transcript.Extractor_3.1.6_aarch64.dmg`.
