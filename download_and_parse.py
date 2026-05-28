@@ -21,8 +21,8 @@ except ImportError:
 
 import yt_dlp
 
-# Đường dẫn thư mục
-BASE_DIR = '/Users/kientrong/Desktop/Antigravity/Kien'
+# Đường dẫn thư mục theo vị trí file hiện tại để app chạy được ở mọi máy/thư mục
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TRANSCRIPTS_DIR = os.path.join(BASE_DIR, 'transcripts')
 TEMP_DIR = os.path.join(BASE_DIR, 'temp_audio')
 VIDEOS_JSON = os.path.join(BASE_DIR, 'videos.json')

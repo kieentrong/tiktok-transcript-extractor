@@ -1,4 +1,4 @@
-# TikTok Transcript Extractor - NEX Picture Desktop Studio (v3.1.5)
+# TikTok Transcript Extractor - NEX Picture Desktop Studio (v3.1.6)
 
 Ứng dụng dành cho macOS giúp tự động quét, cào và trích xuất sạch sẽ toàn bộ transcript từ bất kỳ kênh TikTok nào.
 
@@ -26,6 +26,7 @@
 
 | Phiên bản | Ngày | Tác giả | Mô tả |
 | :--- | :--- | :--- | :--- |
+| **v3.1.6** | 28/05/2026 | kieentrong | Sửa lỗi bản cài đặt bị báo hỏng/không chạy trên máy khác bằng cách bundle backend Python vào app, copy runtime sang Application Support, bỏ hard-code đường dẫn và bổ sung hướng dẫn Gatekeeper/Intel. |
 | **v3.1.5** | 25/05/2026 | kieentrong | Cập nhật link kênh mặc định thành @kieentrong và tối ưu hóa CSS padding/margin để hiển thị hoàn hảo đồng thời cả cấu hình và thanh tiến trình mà không bị mất nút khi cào/dừng. |
 | **v3.1.4** | 25/05/2026 | kieentrong | Tối ưu hóa layout (ẩn Cấu hình, tăng max-height, tăng window height) để giải quyết triệt để lỗi tràn layout gây ẩn các nút bấm ở dưới khi đang cào. |
 | **v3.1.3** | 25/05/2026 | kieentrong | Sửa lỗi kết nối server (CORS & Absolute API Endpoint) trên macOS Webview production build. |
@@ -44,7 +45,8 @@
 
 *   **Bước 1: Tải file cài đặt**
     *   Bấm vào link [Trang Releases của GitHub](https://github.com/kieentrong/tiktok-transcript-extractor/releases).
-    *   Tại mục bản phát hành mới nhất, bấm vào tệp tin **`TikTok Transcript Extractor_3.1.5_aarch64.dmg`** ở phần *Assets* để tải về máy Mac của bạn.
+    *   Nếu dùng Mac Apple Silicon (M1/M2/M3/M4), tải tệp **`TikTok Transcript Extractor_3.1.6_aarch64.dmg`** ở phần *Assets*.
+    *   Nếu dùng Mac Intel, cần bản build riêng cho `x86_64-apple-darwin` hoặc bản universal. Không dùng file `aarch64.dmg` cho máy Intel.
 *   **Bước 2: Cài đặt vào máy**
     *   Nhấp đúp chuột vào file `.dmg` vừa tải về để mở cửa sổ đĩa đệm.
     *   **Kéo và thả** biểu tượng ứng dụng **TikTok Transcript Extractor** vào thư mục **Applications** (Ứng dụng) trên máy Mac của bạn.
@@ -55,6 +57,15 @@
         2. Một hộp thoại sẽ hiện lên, lúc này sẽ có nút **"Open Anyway"** (Vẫn mở) hoặc **"Open"** xuất hiện -> bạn chỉ cần bấm nút này là app sẽ chạy bình thường.
         3. *(Hoặc bạn vào **System Settings** (Cài đặt hệ thống) -> **Privacy & Security** (Quyền riêng tư & Bảo mật) -> cuộn xuống dưới tìm mục bảo mật và bấm **"Open Anyway"**).*
         4. Từ lần thứ 2 trở đi, bạn có thể click đúp mở app bình thường như mọi phần mềm khác!
+
+    *   Nếu macOS báo **"ứng dụng bị hỏng"** đối với bản test chưa notarize, hãy chạy lệnh sau sau khi đã kéo app vào thư mục Applications:
+        ```bash
+        xattr -cr "/Applications/TikTok Transcript Extractor.app"
+        ```
+        Sau đó mở lại app bằng chuột phải -> **Open**.
+
+> [!IMPORTANT]
+> Để người dùng tải về và mở như app thương mại bình thường, bản phát hành cần được ký bằng Apple Developer ID và notarize bởi Apple. Bản build ad-hoc chỉ phù hợp test nội bộ.
 
 #### 💡 Cơ chế Tự Thiết Lập Môi Trường Ngầm (Self-installing):
 Khi app khởi chạy lần đầu tiên trên máy Mac của bạn:
@@ -84,6 +95,12 @@ pnpm tauri build
 ```
 Các tệp đóng gói hoàn tất sẽ xuất hiện tại thư mục `src-tauri/target/release/bundle/`.
 
+#### Build cho Mac Intel:
+```bash
+rustup target add x86_64-apple-darwin
+pnpm tauri build --target x86_64-apple-darwin
+```
+
 ---
 
 ## 🛠️ Kiến Trúc Công Nghệ
@@ -93,5 +110,4 @@ Các tệp đóng gói hoàn tất sẽ xuất hiện tại thư mục `src-taur
 
 ---
 
-*Copyright by Kien NEX Picture • Phiên bản v3.1.5*
-
+*Copyright by Kien NEX Picture • Phiên bản v3.1.6*
